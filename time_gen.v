@@ -47,4 +47,16 @@ always @ (posedge clk or negedge rst_n) begin
     end
 end
 
+always @ (posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+        r_ms_cnt <= 0;
+    end else if (i_run) begin
+        if (r_ms_tick) begin
+            r_ms_cnt <= r_ms_cnt + 1;
+        end
+    end else if (i_idle) begin
+        r_ms_cnt <= 0;
+    end
+end
+
 endmodule

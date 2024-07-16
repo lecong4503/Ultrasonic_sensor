@@ -9,7 +9,6 @@ module FSM(
     input re_idle,
     input toggle,
     input ms_tick,
-    input [3:0] trig_cnt,
     output o_idle,
     output o_trigger,
     output o_measure,
@@ -43,46 +42,45 @@ end
 always @ (posedge clk or negedge rst_n) begin
     if (!rst_n) begin
         c_state <= IDLE;
-        cnt_ena <= 0;
     end else begin
         c_state <= n_state;
     end
 end
 
 always @ (*) begin
+    n_state = c_state;
+    cnt_ena = 1;
     if (re_idle) begin
         n_state = IDLE;
         cnt_ena = 1;
     end else begin
     case (c_state)
         IDLE : if(toggle == 1 && ms_cnt == 50) begin
-                n_state <= TRIGGER;
-                cnt_ena <= 0;
+                n_state = TRIGGER;
+                cnt_ena = 0;
                end else if (toggle == 0) begin
-                n_state <= IDLE;
-                cnt_ena <= 0;
-               end else begin
-                cnt_ena <= 1;
+                n_state = IDLE;
+                cnt_ena = 0;
                end
 
         TRIGGER : if(toggle == 1 && trig_done == 1) begin
-                n_state <= MEASURE;
+                n_state = MEASURE;
                end else if (toggle == 0) begin
-                n_state <= IDLE;
+                n_state = IDLE;
                end
 
         MEASURE : if(toggle == 1 && i_read) begin
-                n_state <= READ;
+                n_state = READ;
                end
                else if (toggle == 0) begin
-                n_state <= IDLE;
+                n_state = IDLE;
                end
 
         READ : if(toggle == 1 && i_done) begin
-                n_state <= IDLE;
+                n_state = IDLE;
                end
                else if (toggle == 0) begin
-                n_state <= IDLE;
+                n_state = IDLE;
                end
     endcase
     end

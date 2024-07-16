@@ -23,12 +23,13 @@ always @ (posedge clk or negedge rst_n) begin
 end
 
 always @ (*) begin
+    n_state = c_state;
     case (c_state)
         IDLE : if (toggle == 1)
-                n_state <= RUN;
+                n_state = RUN;
         RUN  : if (toggle == 0)
-                n_state <= IDLE;
-        default : n_state <= IDLE;
+                n_state = IDLE;
+        default : n_state = IDLE;
     endcase
 end
 

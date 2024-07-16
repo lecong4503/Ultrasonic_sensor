@@ -3,14 +3,14 @@
 module read (
     input clk,
     input rst_n,
-    input [32:0] i_distance,
+    input [31:0] i_distance,
     input i_idle,
     input i_read,
     output done_read,
-    output [32:0] distance
+    output [31:0] distance
 );
 
-reg [32:0] r_distance;
+reg [31:0] r_distance;
 reg r_done_read;
 
 always @ (posedge clk or negedge rst_n) begin

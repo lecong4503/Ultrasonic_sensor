@@ -6,8 +6,7 @@ module top_time_gen (
     input btn,
     output us_tick,
     output ms_tick,
-    output toggle,
-    output us_cnt
+    output toggle
 );
 
 reg btn_state;
@@ -42,7 +41,6 @@ time_gen u_time_gen (
     .rst_n(rst_n),
     .i_idle(w_idle),
     .i_run(w_run),
-    .us_cnt(us_cnt),
     .us_tick(us_tick),
     .ms_tick(ms_tick)
 );

@@ -6,7 +6,8 @@ module top_sonic_sensor (
     input echo,
     input btn,
     output trigger,
-    output [32:0] distance
+    output [31:0] distance,
+    output o_valid
 );
 
 wire w_dis_done;
@@ -16,7 +17,6 @@ wire w_re_idle;
 // TIME_GEN
 wire w_us_tick, w_ms_tick;
 wire w_toggle;
-wire [13:0] w_us_cnt;
 
 top_time_gen u_time_gen (
     .clk(clk),
@@ -24,15 +24,13 @@ top_time_gen u_time_gen (
     .btn(btn),
     .us_tick(w_us_tick),
     .ms_tick(w_ms_tick),
-    .toggle(w_toggle),
-    .us_cnt(w_us_cnt)
+    .toggle(w_toggle)
 );
 
 // FSM
 wire w_trig_done;
 wire w_ot_read;
 wire w_idle, w_trig_state, w_measure;
-wire [3:0] w_trig_cnt;
 
 FSM u_FSM (
     .clk(clk),
@@ -62,7 +60,7 @@ trigger u_trig(
 assign trigger = w_trig_state;
 
 // ECHO
-wire [32:0] w_echo_time;
+wire [31:0] w_echo_time;
 wire w_e_done;
 
 echo_time u_echo (
@@ -76,7 +74,7 @@ echo_time u_echo (
 );
 
 // DISTANCE
-wire [32:0] w_distance;
+wire [31:0] w_distance;
 
 distance u_dist(
     .clk(clk),
@@ -99,5 +97,7 @@ read u_read (
     .done_read(w_done_read),
     .distance(distance)
 );
+
+assign o_valid = w_done_read;
 
 endmodule

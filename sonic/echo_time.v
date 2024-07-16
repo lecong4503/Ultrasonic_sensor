@@ -5,13 +5,13 @@ module echo_time (
     input rst_n,
     input echo,
     input i_idle,
-    output [32:0] echo_time,
+    output [31:0] echo_time,
     output e_done,
     output re_idle
 );
 
-reg [32:0] r_echo_cnt;
-reg [32:0] r_echo_time;
+reg [31:0] r_echo_cnt;
+reg [31:0] r_echo_time;
 reg old_echo;
 reg echo_done;
 reg r_re_idle;

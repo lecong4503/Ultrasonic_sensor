@@ -3,16 +3,16 @@
 module distance (
     input clk,
     input rst_n,
-    input [32:0] echo_time,
+    input [31:0] echo_time,
     input e_done,
     input i_idle,
-    output [32:0] distance,
+    output [31:0] distance,
     output dis_done
 );
 
 reg r_dis_done;
-reg [32:0] r_distance;
-wire [32:0] w_distance;
+reg [31:0] r_distance;
+wire [31:0] w_distance;
 
 assign w_distance = echo_time / 58;
 

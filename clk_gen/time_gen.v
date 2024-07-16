@@ -5,7 +5,6 @@ module time_gen (
     input rst_n,
     input i_idle,
     input i_run,
-    output [13:0] us_cnt,
     output us_tick,
     output ms_tick
 );
@@ -45,7 +44,6 @@ always @ (posedge clk or negedge rst_n) begin
     end
 end
 
-assign us_cnt = r_us_cnt;
 assign us_tick = w_us_tick;
 assign ms_tick = r_ms_tick;
 

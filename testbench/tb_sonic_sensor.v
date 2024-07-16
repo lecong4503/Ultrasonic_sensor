@@ -7,7 +7,7 @@ reg rst_n;
 reg echo;
 reg btn;
 wire trigger;
-wire [32:0] distance;
+wire [31:0] distance;
 
 top_sonic_sensor u_sonic (
     .clk(clk),
